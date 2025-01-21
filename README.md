@@ -2,18 +2,20 @@
 
 <b>Problem</b> HustleSasa needs a Nextjs application to display a list of products for a vendor
 
-<a href="https://docs.google.com/presentation/d/1Jb3OL2JcGnXt8bltDzmZ8JN8D5wvryRJ94S5Oky1KEI/edit?usp=sharing">Design Link</a>
+<a href="https://www.figma.com/design/tuFC2V3gMzFMThMKqKvAng/Hustlesasa-Marketplace?node-id=2-19933&t=n0sNVtvNf0FM77nW-1">Design Link</a>
 
 <b>Requirements</b>
 
-1. Store information should be loaded from <a href="https://run.mocky.io/v3/5194b007-b9b9-4748-a63f-f5db0ee4cd47">Mock data</a>
-2. Page should be responsive
-3. Keep a history of work through your commits
+1. Store information should be loaded from <a href="https://dummyjson.com/products">Mock data</a>.
+2. Page should be responsive.
+3. Vendor should be able to filter products by categories and pricing defined in the mock data.
+4. Vendor should be able to clear all filters.
+5. Keep a history of work through your commits.
 
 <b>Nice to haves</b>
 
 1. Unit tests
-2. Styled components
+2. Tailwind CSS
 3. Typescript
 
 <b>Deliverables</b>
