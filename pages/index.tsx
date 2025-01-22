@@ -4,6 +4,7 @@ import DashboardLayout from "../layouts/Dashboard";
 import ShopLayout from "../layouts/Shop";
 import { Filters } from "../components/Filters";
 import ShopList from "../components/ShopList";
+import { FilterProvider } from "../contexts/FilterContext";
 
 const Home: NextPage = () => {
   return (
@@ -15,12 +16,14 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="">
-        <DashboardLayout>
-          <ShopLayout>
-            <Filters />
-            <ShopList />
-          </ShopLayout>
-        </DashboardLayout>
+        <FilterProvider>
+          <DashboardLayout>
+            <ShopLayout>
+              <Filters />
+              <ShopList />
+            </ShopLayout>
+          </DashboardLayout>
+        </FilterProvider>
       </main>
     </div>
   );

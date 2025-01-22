@@ -1,4 +1,5 @@
 import React from "react";
+import { useFilter } from "../contexts/FilterContext";
 
 const SEARCH_TAGS = ["Party", "March 14", "Day", "Kenya"];
 const CATEGORIES = [
@@ -22,8 +23,17 @@ const PRICE_RANGES = [
 ];
 
 export const Filters = () => {
+  const { categories, selectedCategories, setSelectedCategories } = useFilter();
+  const handleCategoryChange = (category: string) => {
+    if (selectedCategories.includes(category)) {
+      setSelectedCategories(selectedCategories.filter((c) => c !== category));
+    } else {
+      setSelectedCategories([...selectedCategories, category]);
+    }
+  };
+
   return (
-    <div className="p-4 w-80 bg-white space-y-6">
+    <div className="p-4 w-80 bg-white space-y-8">
       <div>
         <h3 className="text-lg font-bold mb-4">Search Tags</h3>
         <div className="flex flex-wrap gap-2">
@@ -39,20 +49,21 @@ export const Filters = () => {
       </div>
 
       <div>
-        <h3 className="text-lg font-bold mb-6">Category</h3>
+        <h3 className="text-lg font-bold mb-4">Category</h3>
         <div className="space-y-2">
-          {CATEGORIES.map((category) => (
+          {categories.map((category) => (
             <label
-              key={category.name}
-              className="flex items-center space-x-2 text-sm"
+              key={category}
+              className="flex items-center space-x-2 text-sm capitalize"
             >
               <input
                 type="checkbox"
-                checked={category.selected || false}
+                checked={selectedCategories.includes(category)}
+                onChange={() => handleCategoryChange(category)}
                 className="form-checkbox h-4 w-4 text-teal-500 border-gray-300 rounded"
               />
-              <span>{category.name}</span>
-              <span className="ml-auto text-gray-500">{category.count}</span>
+              <span>{category}</span>
+              {/* <span className="ml-auto text-gray-500">{category.count}</span> */}
             </label>
           ))}
         </div>

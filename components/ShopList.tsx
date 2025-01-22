@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ShopItem from "./ShopItem";
+import { useFilter } from "../contexts/FilterContext";
+import { prepareAvailableCategories } from "../utils/helpers";
 
-type Product = {
+export type Product = {
   id: number;
   title: string;
   description: string;
@@ -43,20 +45,30 @@ type Product = {
 
 const ShopList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const { selectedCategories, setCategories } = useFilter();
 
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch("https://dummyjson.com/products");
       const data = await response.json();
       setProducts(data.products);
+
+      const uniqueCategories = prepareAvailableCategories(data.products);
+      setCategories(uniqueCategories);
     };
 
     fetchProducts();
-  }, []);
+  }, [setCategories]);
+
+  const filteredProducts = products.filter(
+    (product) =>
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(product.category)
+  );
 
   return (
     <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <ShopItem
           key={product.id}
           title={product.title}
