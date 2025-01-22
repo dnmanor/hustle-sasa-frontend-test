@@ -45,7 +45,7 @@ export type Product = {
 
 const ShopList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const { selectedCategories, setCategories } = useFilter();
+  const { selectedCategories, setCategories, priceRange } = useFilter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -62,8 +62,10 @@ const ShopList: React.FC = () => {
 
   const filteredProducts = products.filter(
     (product) =>
-      selectedCategories.length === 0 ||
-      selectedCategories.includes(product.category)
+      (selectedCategories.length === 0 ||
+        selectedCategories.includes(product.category)) &&
+      product.price >= priceRange.min &&
+      product.price <= priceRange.max
   );
 
   return (

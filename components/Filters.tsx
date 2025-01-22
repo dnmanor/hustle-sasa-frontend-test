@@ -16,20 +16,43 @@ const CATEGORIES = [
 ];
 
 const PRICE_RANGES = [
-  "All",
-  "0KES - 1500KES",
-  "1500KES - 2000KES",
-  "2000KES - 4000KES",
+  { label: "All", min: 0, max: 4000 },
+  { label: "0KES - 1500KES", min: 0, max: 1500 },
+  { label: "1500KES - 2000KES", min: 1500, max: 2000 },
+  { label: "2000KES - 4000KES", min: 2000, max: 4000 },
 ];
 
 export const Filters = () => {
-  const { categories, selectedCategories, setSelectedCategories } = useFilter();
+  const {
+    categories,
+    selectedCategories,
+    setSelectedCategories,
+    priceRange,
+    setPriceRange,
+    selectedPriceRangeIndex,
+    setSelectedPriceRangeIndex,
+  } = useFilter();
+
   const handleCategoryChange = (category: string) => {
     if (selectedCategories.includes(category)) {
       setSelectedCategories(selectedCategories.filter((c) => c !== category));
     } else {
       setSelectedCategories([...selectedCategories, category]);
     }
+  };
+
+  const handlePriceRangeChange = (index: number) => {
+    setSelectedPriceRangeIndex(index);
+    setPriceRange({
+      min: PRICE_RANGES[index].min,
+      max: PRICE_RANGES[index].max,
+    });
+  };
+
+  const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    setPriceRange({ ...priceRange, max: value });
+    setSelectedPriceRangeIndex(-1);
   };
 
   return (
@@ -73,14 +96,15 @@ export const Filters = () => {
         <h3 className="text-lg font-bold mb-2">Pricing</h3>
         <div className="space-y-2">
           {PRICE_RANGES.map((price, index) => (
-            <label key={price} className="flex items-center space-x-2 text-sm">
+            <label key={price.label} className="flex items-center space-x-2 text-sm">
               <input
                 type="radio"
                 name="pricing"
                 className="form-radio h-4 w-4 text-teal-500 border-gray-300"
-                defaultChecked={index === 0}
+                checked={index === selectedPriceRangeIndex}
+                onChange={() => handlePriceRangeChange(index)}
               />
-              <span>{price}</span>
+              <span>{price.label}</span>
             </label>
           ))}
         </div>
@@ -92,11 +116,13 @@ export const Filters = () => {
             min="0"
             max="4000"
             step="50"
+            value={priceRange.max}
+            onChange={handleRangeChange}
             className="w-full accent-teal-500"
           />
           <div className="flex justify-between text-sm mt-2">
-            <span>500 KES</span>
-            <span>1600 KES</span>
+            <span>{priceRange.min} KES</span>
+            <span>{priceRange.max} KES</span>
           </div>
         </div>
       </div>
