@@ -1,6 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import DashboardLayout from "../layouts/Dashboard";
+import ShopLayout from "../layouts/Shop";
+import { Filters } from "../components/Filters";
+import ShopList from "../components/ShopList";
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +16,10 @@ const Home: NextPage = () => {
 
       <main className="">
         <DashboardLayout>
-          <div>sskjdn</div>
+          <ShopLayout>
+            <Filters />
+            <ShopList />
+          </ShopLayout>
         </DashboardLayout>
       </main>
     </div>

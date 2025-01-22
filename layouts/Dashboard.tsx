@@ -1,5 +1,4 @@
-import { NavigationItem } from "../components/NavigationLink";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import TopNavigation from "../components/TopNavigation";
 import Hero from "../components/Hero";
 
