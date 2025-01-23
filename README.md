@@ -26,3 +26,23 @@
 We respect your time, and we understand that you are already busy. We only expect 12 hours to be spent completing this challenge. If you would like to spend more time working on it, you are free to do so, but please know that if you do not finish, it is not the end of the world. At the end of the day, we want to see the way you tackle problems and that you can write code.
 
 If you have any questions during this process, feel free to ask!
+
+----------------------
+*********************
+
+# How to run
+
+- Clone repository
+- Install dependencies 
+
+```bash
+yarn install
+```
+
+- Run app
+
+```bash
+yarn dev
+```
+
+find app on `http://localhost:3000/`
