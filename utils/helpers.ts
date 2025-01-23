@@ -12,3 +12,16 @@ export const prepareAvailableCategories = (products: Product[]): string[] => {
   const categoriesSet = new Set(products.map(product => product.category));
   return Array.from(categoriesSet);
 };
+
+export const filterProducts = (
+  products: Product[], 
+  selectedCategories: string[], 
+  priceRange: { min: number; max: number }
+) => {
+  return products.filter(
+    (product) =>
+      (selectedCategories.length === 0 || selectedCategories.includes(product.category)) &&
+      product.price >= priceRange.min &&
+      product.price <= priceRange.max
+  );
+};

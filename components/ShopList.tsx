@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ShopItem from "./ShopItem";
-import {useFilter} from "../contexts/FilterContext";
-import {prepareAvailableCategories} from "../utils/helpers";
+import { useFilter } from "../contexts/FilterContext";
+import { filterProducts, prepareAvailableCategories } from "../utils/helpers";
 import Button from "./Button";
 
 export type Product = {
@@ -49,7 +49,7 @@ const ITEMS_PER_PAGE = 12;
 const ShopList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const {selectedCategories, setCategories, priceRange} = useFilter();
+  const { selectedCategories, setCategories, priceRange } = useFilter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -64,16 +64,18 @@ const ShopList: React.FC = () => {
     fetchProducts();
   }, [setCategories]);
 
-  const filteredProducts = products.filter(
-    (product) =>
-      (selectedCategories.length === 0 || selectedCategories.includes(product.category)) &&
-      product.price >= priceRange.min &&
-      product.price <= priceRange.max
+  const filteredProducts = filterProducts(
+    products,
+    selectedCategories,
+    priceRange
   );
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const paginatedProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -92,22 +94,25 @@ const ShopList: React.FC = () => {
 
       {totalPages > 1 && (
         <div className="flex gap-2 items-center justify-center mt-8 mb-4">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-            <button
-              key={pageNum}
-              onClick={() => setCurrentPage(pageNum)}
-              className={`w-8 h-8 flex items-center justify-center rounded-full transition-colors
-                ${pageNum === currentPage 
-                  ? 'bg-black text-white' 
-                  : 'text-gray-600 hover:bg-gray-100'
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+            (pageNum) => (
+              <button
+                key={pageNum}
+                onClick={() => setCurrentPage(pageNum)}
+                className={`w-8 h-8 flex items-center justify-center rounded-full transition-colors
+                ${
+                  pageNum === currentPage
+                    ? "bg-black text-white"
+                    : "text-gray-600 hover:bg-gray-100"
                 }`}
-            >
-              {pageNum}
-            </button>
-          ))}
+              >
+                {pageNum}
+              </button>
+            )
+          )}
           {currentPage < totalPages && (
             <button
-              onClick={() => setCurrentPage(prev => prev + 1)}
+              onClick={() => setCurrentPage((prev) => prev + 1)}
               className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full"
             >
               »
