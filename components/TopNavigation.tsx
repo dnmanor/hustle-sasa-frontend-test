@@ -50,14 +50,14 @@ const TopNavigation = () => {
         <a href="/" className="mr-10">
           <Image src="logo.svg" height={60} width={60} alt="logo" className="cursor-pointer" />
         </a>
-        <div className="flex gap-2">
+        <div className="flex gap-4">
           {NAV_LINKS.map((link) => (
             <NavigationLink link={link} />
           ))}
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <div className="flex items-center border border-[#D1D3D4] p-2 rounded-lg">
+        <div className="flex items-center border border-[#D1D3D4] p-2 rounded-lg gap-1">
           <Search size={16} color="#7E7E7E" />
           <input type="text" placeholder="Search..." className="outline-none border-none" />
         </div>
