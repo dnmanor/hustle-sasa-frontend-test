@@ -6,8 +6,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   export default function Button({ children, className, variant, ...rest }: ButtonProps) {
     const variantClasses = {
       primary: 'bg-[#F9A826] hover:bg-gray-900 text-white text-white',
-      secondary: 'bg-gray-200 hover:bg-gray-300 text-black',
-      destructive: 'bg-red-500 hover:bg-red-600 text-white',
+      secondary: 'bg-[#5AC3B6] hover:bg-[#5AC3B6]/80 text-white',
+      destructive: 'bg-[#FF3B30] hover:bg-[#FF3B30]/80 text-white',
       outline: 'border border-gray-500 text-gray-500 hover:bg-gray-200',
     };
   

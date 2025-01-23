@@ -1,5 +1,6 @@
 import React from "react";
-import {Search} from "lucide-react";
+import { Search } from "lucide-react";
+import Button from "./Button";
 
 const Hero = () => {
   return (
@@ -23,9 +24,12 @@ const Hero = () => {
             placeholder="Search here..."
             className="h-full w-full px-2 flex-1 text-gray-800 focus:outline-none"
           />
-          <button className="bg-[#FF3B30] text-white h-full px-3 sm:px-4 md:px-6 rounded-md whitespace-nowrap text-sm sm:text-base">
+          <Button
+            variant="destructive"
+            className="h-full px-3 sm:px-4 md:px-6 text-sm sm:text-base"
+          >
             Search
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { formatDate } from "../utils/helpers";
 import Image from "next/image";
 
 import { Product } from "./ShopList";
+import Button from "./Button";
 
 type ShopItemProps = Pick<Product, "title" | "price" | "thumbnail"> & {
   createdAt: string;
@@ -28,8 +29,8 @@ const ShopItem: React.FC<ShopItemProps> = ({
         <Image
           src={thumbnail}
           alt={title}
-          width={400} 
-          height={300} 
+          width={400}
+          height={300}
           className="rounded-[10px] object-contain w-full aspect-[4/3]"
         />
         <button className="absolute top-2 right-2 p-2 hover:bg-gray-100/80 rounded-full transition-colors">
@@ -49,9 +50,9 @@ const ShopItem: React.FC<ShopItemProps> = ({
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4 mt-4">
-        <button className="flex-1 h-12 bg-[#5AC3B6] text-white font-medium rounded-xl hover:bg-[#5AC3B6]/80 transition">
+        <Button variant="secondary" className="flex-1 h-12 py-4 sm:py-3">
           Buy Now
-        </button>
+        </Button>
         <div className="flex-1 flex items-center justify-end text-[#7E7E7E] text-sm">
           <span className="flex gap-x-2">
             {reviewCount}
