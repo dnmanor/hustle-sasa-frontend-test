@@ -57,14 +57,14 @@ export const Filters = () => {
   };
 
   return (
-    <div className="p-4 flex-shrink-0 w-80 bg-white space-y-8">
+    <div className="md:p-4 p-[10px] md:flex-shrink-0 w-full md:w-80 bg-white space-y-8">
       <div>
         <h3 className="text-lg font-bold mb-4">Search Tags</h3>
         <div className="flex flex-wrap gap-2">
           {SEARCH_TAGS.map((tag) => (
             <div
               key={tag}
-              className="bg-[#46C75A] text-white text-sm  px-4 py-1 rounded-full cursor-pointer text-center"
+              className="bg-[#46C75A] text-white text-sm px-4 py-1 rounded-full cursor-pointer text-center"
             >
               {tag} <span className="ml-2 text-white">×</span>
             </div>
@@ -74,7 +74,7 @@ export const Filters = () => {
 
       <div>
         <h3 className="text-lg font-bold mb-4">Category</h3>
-        <div className="space-y-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-2">
           {categories.map((category) => (
             <label
               key={category}
@@ -116,7 +116,7 @@ export const Filters = () => {
 
       <div>
         <h3 className="text-lg font-bold mb-4">Pricing</h3>
-        <div className="space-y-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-2">
           {PRICE_RANGES.map((price, index) => (
             <label key={price.label} className="flex items-center space-x-2 text-sm">
               <div className="inline-flex items-center">

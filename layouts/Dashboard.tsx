@@ -8,11 +8,13 @@ type DashboardLayoutProps = {
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({children}) => {
   return (
-    <div>
+    <div className="w-full h-full">
       <TopNavigation />
       <Hero />
 
-      <div className="flex p-20">{children}</div>
+      <div className="flex flex-col lg:flex-row gap-4 p-4 sm:p-6 md:p-8 lg:p-12 xl:p-20 w-full max-w-[2000px] mx-auto">
+        {children}
+      </div>
     </div>
   );
 };

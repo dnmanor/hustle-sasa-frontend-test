@@ -3,7 +3,7 @@ import NavigationLink, {NavigationItem} from "../components/NavigationLink";
 import {Search} from "lucide-react";
 import CountrySelector from "../components/CountrySelector";
 import {CountryMenuOption} from "../data/countries";
-import {UserRound, Star, ShoppingBag} from "lucide-react";
+import {UserRound, Star, ShoppingBag, Menu} from "lucide-react";
 import Button from "../components/Button";
 import Image from "next/image";
 
@@ -43,51 +43,128 @@ const TopNavigation = () => {
   });
 
   const [openCountrySelector, setOpenCountrySelector] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="h-[108px] px-14 flex items-center justify-between">
-      <div className="flex items-center gap-2">
-        <a href="/" className="mr-10">
-          <Image src="logo.svg" height={60} width={60} alt="logo" className="cursor-pointer" />
-        </a>
-        <div className="flex gap-4">
-          {NAV_LINKS.map((link) => (
-            <NavigationLink link={link} />
-          ))}
-        </div>
-      </div>
-      <div className="flex items-center gap-2">
-        <div className="flex items-center border border-[#D1D3D4] p-2 rounded-lg gap-1">
-          <Search size={16} color="#7E7E7E" />
-          <input type="text" placeholder="Search..." className="outline-none border-none" />
-        </div>
-        <CountrySelector
-          id={"country-selector"}
-          open={openCountrySelector}
-          onToggle={() => {
-            setOpenCountrySelector(!openCountrySelector);
-          }}
-          onChange={() => {
-            console.log("toggles");
-          }}
-          selectedValue={currentCountry as CountryMenuOption}
-        />
-        <div className="flex items-center gap-4 text-[#7E7E7E]">
-          <IconWrapper>
-            <UserRound />
-          </IconWrapper>
-          <IconWrapper messageCount={2}>
-            <Star />
-          </IconWrapper>
-          <IconWrapper messageCount={3}>
-            <ShoppingBag />
-          </IconWrapper>
+    <div className="relative">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-14 py-4 md:py-0 md:h-[108px] flex items-center justify-between bg-white">
+        <div className="flex items-center gap-2">
+          <a href="/" className="md:mr-10">
+            <Image
+              src="logo.svg"
+              height={60}
+              width={60}
+              alt="logo"
+              className="cursor-pointer w-12 h-12 md:w-[60px] md:h-[60px]"
+            />
+          </a>
+          <div className="hidden md:flex gap-4">
+            {NAV_LINKS.map((link) => (
+              <NavigationLink key={link.name} link={link} />
+            ))}
+          </div>
         </div>
 
-        <div className="ml-4">
-          <Button>For creators</Button>
+        <div className="flex items-center gap-2">
+          <div className="hidden sm:flex items-center border border-[#D1D3D4] p-2 rounded-lg gap-1">
+            <Search size={16} color="#7E7E7E" />
+            <input
+              type="text"
+              placeholder="Search..."
+              className="outline-none border-none w-24 sm:w-auto"
+            />
+          </div>
+
+          <div className="hidden sm:block">
+            <CountrySelector
+              id={"country-selector"}
+              open={openCountrySelector}
+              onToggle={() => {
+                setOpenCountrySelector(!openCountrySelector);
+              }}
+              onChange={() => {
+                console.log("toggles");
+              }}
+              selectedValue={currentCountry as CountryMenuOption}
+            />
+          </div>
+
+          <div className="hidden sm:flex items-center gap-4 text-[#7E7E7E]">
+            <IconWrapper>
+              <UserRound />
+            </IconWrapper>
+            <IconWrapper messageCount={2}>
+              <Star />
+            </IconWrapper>
+            <IconWrapper messageCount={3}>
+              <ShoppingBag />
+            </IconWrapper>
+          </div>
+
+          <div className="hidden sm:block ml-4">
+            <Button>For creators</Button>
+          </div>
+
+          <button
+            className="md:hidden text-gray-600"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <Menu size={24} />
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg z-50 p-4">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center border border-[#D1D3D4] p-2 rounded-lg gap-1 sm:hidden">
+              <Search size={16} color="#7E7E7E" />
+              <input
+                type="text"
+                placeholder="Search..."
+                className="outline-none border-none flex-1"
+              />
+            </div>
+
+            <div className="sm:hidden">
+              <CountrySelector
+                id={"country-selector-mobile"}
+                open={openCountrySelector}
+                onToggle={() => {
+                  setOpenCountrySelector(!openCountrySelector);
+                }}
+                onChange={() => {
+                  console.log("toggles");
+                }}
+                selectedValue={currentCountry as CountryMenuOption}
+              />
+            </div>
+
+            <nav className="flex flex-col gap-2">
+              {NAV_LINKS.map((link) => (
+                <NavigationLink key={link.name} link={link} />
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-4 text-[#7E7E7E] sm:hidden">
+              <IconWrapper>
+                <UserRound />
+              </IconWrapper>
+              <IconWrapper messageCount={2}>
+                <Star />
+              </IconWrapper>
+              <IconWrapper messageCount={3}>
+                <ShoppingBag />
+              </IconWrapper>
+            </div>
+
+            <div className="sm:hidden">
+              <Button fullWidth>For creators</Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
