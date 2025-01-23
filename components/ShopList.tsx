@@ -3,6 +3,7 @@ import ShopItem from "./ShopItem";
 import { useFilter } from "../contexts/FilterContext";
 import { filterProducts, prepareAvailableCategories } from "../utils/helpers";
 import Button from "./Button";
+import { LoaderCircle } from "lucide-react";
 
 export type Product = {
   id: number;
@@ -49,16 +50,28 @@ const ITEMS_PER_PAGE = 12;
 const ShopList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const { selectedCategories, setCategories, priceRange } = useFilter();
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch("https://dummyjson.com/products");
-      const data = await response.json();
-      setProducts(data.products);
+      try {
+        const response = await fetch("https://dummyjson.com/products");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setProducts(data.products);
 
-      const uniqueCategories = prepareAvailableCategories(data.products);
-      setCategories(uniqueCategories);
+        const uniqueCategories = prepareAvailableCategories(data.products);
+        setCategories(uniqueCategories);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchProducts();
@@ -76,6 +89,22 @@ const ShopList: React.FC = () => {
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
+
+  if (loading){
+    return(
+      <div className="w-full flex items-center justify-center">
+        <LoaderCircle className="animate-spin"/>
+      </div>
+    )
+  }
+
+  if (error){
+    return(
+      <div className="w-full flex items-center justify-center text-red-600">
+        Error fetching products, please try again.
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col items-center w-full">
