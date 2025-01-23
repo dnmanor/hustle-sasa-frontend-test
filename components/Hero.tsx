@@ -10,7 +10,7 @@ const Hero = () => {
       }}
     >
       <div className="text-center text-white px-4 sm:px-6 md:px-8 w-full max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-2">
           Lorem Ipsum is simply dummy
         </h1>
         <p className="text-sm sm:text-base mb-4 sm:mb-6">

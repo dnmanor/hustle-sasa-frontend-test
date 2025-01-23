@@ -56,6 +56,12 @@ export const Filters = () => {
     setSelectedPriceRangeIndex(-1);
   };
 
+  const handleClearFilters = () => {
+    setSelectedCategories([]);
+    setPriceRange({ min: 0, max: 4000 });
+    setSelectedPriceRangeIndex(0);
+  };
+
   return (
     <div className="md:p-4 p-[10px] md:flex-shrink-0 w-full md:w-80 bg-white space-y-8">
       <div>
@@ -165,7 +171,10 @@ export const Filters = () => {
         </div>
 
         <div className="mt-8">
-          <button className="w-full h-[56px] bg-[#5AC3B6] text-white font-medium py-2 rounded-xl hover:bg-[#5AC3B6]/80 transition">
+          <button 
+            onClick={handleClearFilters}
+            className="w-full h-[56px] bg-[#5AC3B6] text-white font-medium py-2 rounded-xl hover:bg-[#5AC3B6]/80 transition"
+          >
             Clear filters
           </button>
         </div>
