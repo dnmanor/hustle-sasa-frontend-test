@@ -1,7 +1,6 @@
-
-import { AnimatePresence, motion } from "framer-motion";
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import { COUNTRIES, CountryMenuOption } from "../data/countries";
+import {AnimatePresence, motion} from "framer-motion";
+import React, {MutableRefObject, useEffect, useRef, useState} from "react";
+import {COUNTRIES, CountryMenuOption} from "../data/countries";
 
 export interface CountrySelectorProps {
   id: string;
@@ -26,11 +25,7 @@ export default function CountrySelector({
     const mutableRef = ref as MutableRefObject<HTMLDivElement | null>;
 
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        mutableRef.current &&
-        !mutableRef.current.contains(event.target as Node) &&
-        open
-      ) {
+      if (mutableRef.current && !mutableRef.current.contains(event.target as Node) && open) {
         onToggle();
         setQuery("");
       }
@@ -46,12 +41,10 @@ export default function CountrySelector({
 
   return (
     <div ref={ref}>
-      <div className="mt-1 relative">
+      <div className="relative">
         <button
           type="button"
-          className={`${
-            disabled ? "bg-neutral-100" : "bg-white"
-          } relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+          className={`${"bg-white"} relative w-full pl-2 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm cursor-pointer`}
           aria-haspopup="listbox"
           aria-expanded="true"
           aria-labelledby="listbox-label"
@@ -90,10 +83,10 @@ export default function CountrySelector({
         <AnimatePresence>
           {open && (
             <motion.ul
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.1 }}
+              initial={{opacity: 0}}
+              animate={{opacity: 1}}
+              exit={{opacity: 0}}
+              transition={{duration: 0.1}}
               className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-80 rounded-md text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
               tabIndex={-1}
               role="listbox"
@@ -147,9 +140,7 @@ export default function CountrySelector({
                           className={"inline mr-2 h-4 rounded-sm"}
                         />
 
-                        <span className="font-normal truncate">
-                          {value.title}
-                        </span>
+                        <span className="font-normal truncate">{value.title}</span>
                         {value.value === selectedValue.value ? (
                           <span className="text-blue-600 absolute inset-y-0 right-0 flex items-center pr-8">
                             <svg
