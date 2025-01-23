@@ -1,10 +1,9 @@
-import type { NextPage } from "next";
+import type {NextPage} from "next";
 import Head from "next/head";
 import DashboardLayout from "../layouts/Dashboard";
-import ShopLayout from "../layouts/Shop";
-import { Filters } from "../components/Filters";
+import {Filters} from "../components/Filters";
 import ShopList from "../components/ShopList";
-import { FilterProvider } from "../contexts/FilterContext";
+import {FilterProvider} from "../contexts/FilterContext";
 
 const Home: NextPage = () => {
   return (
@@ -18,10 +17,8 @@ const Home: NextPage = () => {
       <main className="">
         <FilterProvider>
           <DashboardLayout>
-            <ShopLayout>
-              <Filters />
-              <ShopList />
-            </ShopLayout>
+            <Filters />
+            <ShopList />
           </DashboardLayout>
         </FilterProvider>
       </main>

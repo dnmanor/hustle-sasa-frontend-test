@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import ShopItem from "./ShopItem";
-import { useFilter } from "../contexts/FilterContext";
-import { prepareAvailableCategories } from "../utils/helpers";
+import {useFilter} from "../contexts/FilterContext";
+import {prepareAvailableCategories} from "../utils/helpers";
 
 export type Product = {
   id: number;
@@ -45,7 +45,7 @@ export type Product = {
 
 const ShopList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const { selectedCategories, setCategories, priceRange } = useFilter();
+  const {selectedCategories, setCategories, priceRange} = useFilter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -62,21 +62,22 @@ const ShopList: React.FC = () => {
 
   const filteredProducts = products.filter(
     (product) =>
-      (selectedCategories.length === 0 ||
-        selectedCategories.includes(product.category)) &&
+      (selectedCategories.length === 0 || selectedCategories.includes(product.category)) &&
       product.price >= priceRange.min &&
       product.price <= priceRange.max
   );
 
+  // grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6
   return (
-    <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+    <div className="p-4 items-center justify-center flex flex-wrap gap-4">
       {filteredProducts.map((product) => (
         <ShopItem
           key={product.id}
           title={product.title}
           price={product.price}
           createdAt={product.meta.createdAt}
-          image={product.thumbnail}
+          thumbnail={product.thumbnail}
+          reviewCount={product.reviews.length ?? 0}
         />
       ))}
     </div>
